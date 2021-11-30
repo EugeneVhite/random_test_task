@@ -1,0 +1,9 @@
+<form action="/">
+  <%= text_field_tag(:q, @query) %>
+  <p class="error"><%= @error %></p>
+</form>
+<% if @repo_names.present? %>
+  <% @repo_names.each do |name| %>
+    <p><%= name %></p>
+  <% end %>
+<% end %>
