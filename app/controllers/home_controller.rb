@@ -6,10 +6,10 @@ class HomeController < ApplicationController
     result = ::FetchRepos.new.call(@query) if @query.present?
 
     case result
-    in Dry::Monads::Success
-      @repo_names = result.value!.map { |repo| repo['name'] }
-    in Dry::Monads::Failure
-      @error = result.failure
+    in Dry::Monads::Success(repos)
+      @repo_names = repos.map { |repo| repo['name'] }
+    in Dry::Monads::Failure(failure)
+      @error = failure
     end
   end
 end

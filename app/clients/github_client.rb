@@ -1,6 +1,10 @@
 class GithubClient
   include Dry::Monads[:result]
 
+  def initialize(connection)
+    @connection = connection
+  end
+
   def search_repo(term)
     response =
       connection.get('/search/repositories') do |req|
@@ -19,8 +23,7 @@ class GithubClient
   private
 
   def format_error(errors)
-    ['GitHub thinks your query is broken.',
-    *errors.map { |error| error['message'] }].join(' ')
+    ['GitHub thinks your query is broken.', *errors.map { |error| error['message'] }].join(' ')
   end
 
   def connection
